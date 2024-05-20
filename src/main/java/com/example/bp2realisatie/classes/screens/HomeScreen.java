@@ -17,7 +17,7 @@ public class HomeScreen {
     private DoelScreen doelScreen;
     private Gebruiker gebruiker;
     private Database database;
-    private String gebruikersnaam; // Voeg deze regel toe
+    private String gebruikersnaam;
 
     public HomeScreen(Stage primaryStage, Gebruiker gebruiker, Database database, String gebruikersnaam) {  // Voeg gebruikersnaam als parameter toe
         this.primaryStage = primaryStage;

@@ -4,6 +4,7 @@ import com.example.bp2realisatie.classes.Database;
 import com.example.bp2realisatie.classes.Gebruiker;
 import com.example.bp2realisatie.classes.screens.HomeScreen;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,20 +36,28 @@ public class HelloApplication extends Application {
             database.opslaanGebruiker(gebruikersnaam, wachtwoord);
         }
 
-        Label lblGebruikersnaam = new Label("Gebruikersnaam:");
-        Label lblWachtwoord = new Label("Wachtwoord:");
+        VBox inlogVBox = new VBox(10);
+        inlogVBox.setPadding(new Insets(10));
 
+        Label lblGebruikersnaam = new Label("Gebruikersnaam:");
         TextField txtGebruikersnaam = new TextField();
+        txtGebruikersnaam.setMaxWidth(200); // Stel de maximale breedte in voor het invoerveld
+
+        Label lblWachtwoord = new Label("Wachtwoord:");
         TextField txtWachtwoord = new TextField();
+        txtWachtwoord.setMaxWidth(200);
+
         Button inlogButton = new Button("Inloggen");
 
-        VBox inlogVBox = new VBox(10, lblGebruikersnaam, txtGebruikersnaam, lblWachtwoord, txtWachtwoord, inlogButton);
+        inlogVBox.getChildren().addAll(lblGebruikersnaam, txtGebruikersnaam, lblWachtwoord, txtWachtwoord, inlogButton);
 
         // Laat alleen het inlogscherm zien bij het starten
-        Scene scene = new Scene(inlogVBox, 800, 600);
+        Scene scene = new Scene(inlogVBox);
 
         primaryStage.setTitle("Inlogscherm");
         primaryStage.setScene(scene);
+        primaryStage.setWidth(400);
+        primaryStage.setHeight(300);
         primaryStage.show();
 
         inlogButton.setOnAction(e -> {
@@ -61,6 +70,7 @@ public class HelloApplication extends Application {
                     HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);  // Geef gebruikersnaam door
                     Scene homeScene = new Scene(homeScreen.getScreen(), 800, 600);
                     primaryStage.setScene(homeScene);
+                    System.out.println("Inloggen gelukt voor gebruiker: " + gebruiker.getGebruikersnaam());
                 } else {
                     System.out.println("Onjuiste gebruikersnaam of wachtwoord.");
                 }
