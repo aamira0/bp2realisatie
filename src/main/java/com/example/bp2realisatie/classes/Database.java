@@ -2,22 +2,20 @@ package com.example.bp2realisatie.classes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 public class Database {
     private Connection conn;
-
     private Database database;
-    String gebruikersnaam;
+    private String gebruikersnaam;
 
     public Connection getConnection() {
         return conn;
     }
+
     public Database() {
-
-
-
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/realisatie2",
                     "root", "");
@@ -88,24 +86,6 @@ public class Database {
             e.printStackTrace();
         }
     }
-    // Voegt transactie toe aan de database
-    public boolean opslaanTransactie(double bedrag) {
-        try {
-            // Haal de gebruikerId op
-            int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO transactie (gebruiker_id, bedrag) VALUES (?, ?)");
-            statement.setInt(1, gebruikerId);
-            statement.setDouble(2, bedrag);
-            statement.executeUpdate();
-            conn.commit();
-            return true; // Geeft true terug als de operatie succesvol is
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // Geeft false terug als er een fout is opgetreden
-        }
-    }
-
 
     // Voegt budget toe aan de database
     public boolean opslaanBudget(double bedrag) {
@@ -165,7 +145,7 @@ public class Database {
     public ObservableList<Transactie> laadTransacties() {
         ObservableList<Transactie> transacties = FXCollections.observableArrayList();
         try {
-            Statement stm = database.getConnection().createStatement(); // Hier krijg je de Connection van de Database
+            Statement stm = conn.createStatement(); // Hier krijg je de Connection van de Database
             ResultSet rs = stm.executeQuery("SELECT * FROM transactie");
             while (rs.next()) {
                 double bedrag = rs.getDouble("bedrag");
@@ -206,6 +186,9 @@ public class Database {
                 int id = resultSet.getInt("id");
                 String wachtwoord = resultSet.getString("wachtwoord");
                 gebruiker = new Gebruiker(id, gebruikersnaam, wachtwoord);
+                System.out.println("Inloggen: Gebruiker " + gebruikersnaam + " is ingelogd."); // Voeg dit logboekbericht toe
+            } else {
+                System.out.println("Inloggen: Gebruiker " + gebruikersnaam + " kon niet worden gevonden."); // Voeg dit logboekbericht toe
             }
         } catch (SQLException e) {
             e.printStackTrace();

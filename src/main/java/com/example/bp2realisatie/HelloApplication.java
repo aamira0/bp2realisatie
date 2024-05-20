@@ -35,30 +35,6 @@ public class HelloApplication extends Application {
             database.opslaanGebruiker(gebruikersnaam, wachtwoord);
         }
 
-        //Voeg een nieuw gebruiker toe
-        String nieuweGebruikersnaam = "nieuweGebruiker";
-        String nieuwWachtwoord = "nieuwWachtwoord";
-        database.opslaanGebruiker(nieuweGebruikersnaam, nieuwWachtwoord);
-
-        // Haal gebruiker op
-        String bestaandeGebruikersnaam = "bestaandeGebruiker";
-        Gebruiker gevondenGebruiker = database.haalGebruikerOp(bestaandeGebruikersnaam);
-
-        // Werk het wachtwoord van de bestaande gebruiker bij
-        String teUpdatenGebruikersnaam = "bestaandeGebruiker";
-        String nieuwWachtwoordVoorUpdate = "nieuwWachtwoord";
-        database.updateWachtwoord(teUpdatenGebruikersnaam, nieuwWachtwoordVoorUpdate);
-
-        // Verwijder gebruiker
-        String teVerwijderenGebruiker = "teVerwijderenGebruiker";
-        database.verwijderGebruiker(teVerwijderenGebruiker);
-
-        if (gevondenGebruiker != null) {
-            System.out.println("Gevonden gebruiker: " + gevondenGebruiker.getGebruikersnaam());
-        } else {
-            System.out.println("Gebruiker niet gevonden.");
-        }
-
         Label lblGebruikersnaam = new Label("Gebruikersnaam:");
         Label lblWachtwoord = new Label("Wachtwoord:");
 
@@ -81,25 +57,14 @@ public class HelloApplication extends Application {
 
             // Hier kun je dynamisch gebruikersnamen en wachtwoorden accepteren
             if (!usernameInput.isEmpty() && !passwordInput.isEmpty()) {
-                System.out.println("Input Username: " + usernameInput);
-                System.out.println("Input Password: " + passwordInput);
-                System.out.println("Stored Username: " + gebruiker.getGebruikersnaam());
-                System.out.println("Stored Password: " + gebruiker.getWachtwoord());
-
-                // In plaats van een harde codering, controleert tegen de ingevoerde gegevens
                 if (gebruiker.getGebruikersnaam().equals(usernameInput) && gebruiker.getWachtwoord().equals(passwordInput)) {
-                    // Maak een nieuwe instantie van HomeScreen na succesvol inloggen
-                    HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);
-
-                    // Vervangt het inlogscherm door het startscherm
-                    primaryStage.setScene(new Scene(homeScreen.getScreen(), 800, 600));
+                    HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);  // Geef gebruikersnaam door
+                    Scene homeScene = new Scene(homeScreen.getScreen(), 800, 600);
+                    primaryStage.setScene(homeScene);
                 } else {
-                    System.out.println("Inloggen mislukt. Controleer je gegevens.");
+                    System.out.println("Onjuiste gebruikersnaam of wachtwoord.");
                 }
-            } else {
-                System.out.println("Vul beide velden in om in te loggen.");
             }
         });
     }
-
 }
