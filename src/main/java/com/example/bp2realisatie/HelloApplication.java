@@ -56,7 +56,7 @@ public class HelloApplication extends Application {
 
         primaryStage.setTitle("Inlogscherm");
         primaryStage.setScene(scene);
-        primaryStage.setWidth(400);
+        primaryStage.setWidth(300);
         primaryStage.setHeight(300);
         primaryStage.show();
 
@@ -64,17 +64,22 @@ public class HelloApplication extends Application {
             String usernameInput = txtGebruikersnaam.getText();
             String passwordInput = txtWachtwoord.getText();
 
-            // Hier kun je dynamisch gebruikersnamen en wachtwoorden accepteren
-            if (!usernameInput.isEmpty() && !passwordInput.isEmpty()) {
-                if (gebruiker.getGebruikersnaam().equals(usernameInput) && gebruiker.getWachtwoord().equals(passwordInput)) {
-                    HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);  // Geef gebruikersnaam door
-                    Scene homeScene = new Scene(homeScreen.getScreen(), 800, 600);
-                    primaryStage.setScene(homeScene);
-                    System.out.println("Inloggen gelukt voor gebruiker: " + gebruiker.getGebruikersnaam());
-                } else {
-                    System.out.println("Onjuiste gebruikersnaam of wachtwoord.");
-                }
+            // Controleer of beide velden zijn ingevuld
+            if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
+                System.out.println("Vul zowel gebruikersnaam als wachtwoord in.");
+                return; // Stopt de verdere verwerking als een van de velden leeg is
+            }
+
+            // Controleert de geldigheid van de gebruikersnaam en wachtwoord
+            if (gebruiker.getGebruikersnaam().equals(usernameInput) && gebruiker.getWachtwoord().equals(passwordInput)) {
+                HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);  // Geeft gebruikersnaam door
+                Scene homeScene = new Scene(homeScreen.getScreen(), 300, 200);
+                primaryStage.setScene(homeScene);
+                System.out.println("Inloggen gelukt!"); // Voegt een melding toe dat het inloggen gelukt is
+            } else {
+                System.out.println("Onjuiste gebruikersnaam of wachtwoord.");
             }
         });
+
     }
 }

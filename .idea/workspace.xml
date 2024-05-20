@@ -7,7 +7,6 @@
     <list default="true" id="d482fd9b-74a5-416e-b785-bb5d4d727fb2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/screens/HomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/screens/HomeScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +78,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1716201819860</updated>
-      <workItem from="1716201821005" duration="20522000" />
+      <workItem from="1716201821005" duration="21573000" />
     </task>
     <servers />
   </component>
