@@ -77,11 +77,20 @@ public class TransactieScreen {
             }
         }
 
-        // Event handler voor het verwerken van transactie
+        // Verwerken van transactie
         private void verwerkTransactie() {
             try {
-                // Bedrag ophalen uit de tekstveld
-                double transactie = NumberFormat.getInstance().parse(txtTransactie.getText()).doubleValue();
+                // Bedrag ophalen uit het tekstveld
+                String bedragString = txtTransactie.getText();
+
+                // Controleren of het tekstveld leeg is
+                if (bedragString.isEmpty()) {
+                    System.out.println("Voer een bedrag in voor de transactie.");
+                    return;
+                }
+
+                //Probeert het bedrag in te lezen
+                double transactie = NumberFormat.getInstance().parse(bedragString).doubleValue();
 
                 // Transactie opslaan in de database
                 opslaanTransactie(transactie);
@@ -98,4 +107,5 @@ public class TransactieScreen {
                 ex.printStackTrace();
             }
         }
+
     }

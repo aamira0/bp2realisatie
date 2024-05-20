@@ -47,13 +47,22 @@ public class BudgetScreen {
         return root;
     }
 
+    // Verwerken van het budget
     private void verwerkBudget() {
         try {
-            // Probeer het bedrag in te lezen met behulp van de standaard locale
-            double budgetBedrag = NumberFormat.getInstance().parse(txtBudget.getText()).doubleValue();
+            // Bedrag ophalen uit het tekstveld
+            String bedragString = txtBudget.getText();
 
-            // Opslaan in de database
-            opslaanBudget(budgetBedrag);
+            // Controleren of het tekstveld leeg is
+            if (bedragString.isEmpty()) {
+                System.out.println("Voer een bedrag in voor het budget.");
+                return;
+            }
+            //Probeert het bedrag in te lezen
+            double budget = NumberFormat.getInstance().parse(bedragString).doubleValue();
+
+            // Budget opslaan in de database
+            opslaanBudget(budget);
 //
 //            budget += budgetBedrag;
 //            updateOvergeblevenBudget();

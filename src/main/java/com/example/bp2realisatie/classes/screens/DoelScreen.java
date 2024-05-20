@@ -48,7 +48,15 @@ public class DoelScreen {
 
     private void stelDoelIn() {
         try {
-            // Probeer het bedrag in te lezen met behulp van de standaard locale
+            // Bedrag ophalen uit het tekstveld
+            String bedragString = txtDoel.getText();
+
+            // Controleren of het tekstveld leeg is
+            if (bedragString.isEmpty()) {
+                System.out.println("Voer een bedrag in voor het doel.");
+                return;
+            }
+            // Probeert het bedrag in te lezen met behulp van de standaard locale
             double doelBedrag = NumberFormat.getInstance().parse(txtDoel.getText()).doubleValue();
 
             // Opslaan in de database
