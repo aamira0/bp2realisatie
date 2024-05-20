@@ -1,11 +1,13 @@
 package com.example.bp2realisatie.classes.screens;
 
 import com.example.bp2realisatie.classes.Database;
+import com.example.bp2realisatie.classes.Gebruiker;
 import com.example.bp2realisatie.classes.Transactie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,10 +23,12 @@ public class TransactieScreen {
         private ObservableList<Transactie> transacties;
         private TableView<Transactie> transactieTableView;
         private TextField txtTransactie;
-        private String gebruikersnaam;  // Voeg deze regel toe
+        private String gebruikersnaam;
+        private Gebruiker gebruiker;
         private Connection conn;
 
-        public TransactieScreen(Database database, String gebruikersnaam) {  // Voeg gebruikersnaam als parameter toe
+        public TransactieScreen(Stage primaryStage, Database database, String gebruikersnaam) {  // Voeg gebruikersnaam als parameter toe
+            this.primaryStage = primaryStage;
             this.database = database;
             this.conn = database.getConnection();
             this.gebruikersnaam = gebruikersnaam;  // Sla de gebruikersnaam op
@@ -34,6 +38,12 @@ public class TransactieScreen {
             // Initialize UI components
             root = new VBox(10);
             root.setPadding(new Insets(10));
+
+            Button backButton = new Button("Terug naar Home");
+            backButton.setOnAction(e -> {
+                // Terug naar het startscherm
+                primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
+            });
 
             Label lblTransactie = new Label("Transactiebedrag:");
             txtTransactie = new TextField();
@@ -51,7 +61,7 @@ public class TransactieScreen {
             transacties.addAll(database.laadTransacties());
             transactieTableView.setItems(transacties); // Werkt de TableView bij met de geladen transacties
 
-            root.getChildren().addAll(lblTransactie, txtTransactie, verwerkTransactieButton, transactieTableView);
+            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, transactieTableView);
         }
 
         public Parent getScreen() {

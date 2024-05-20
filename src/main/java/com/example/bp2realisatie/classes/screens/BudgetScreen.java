@@ -4,6 +4,7 @@ import com.example.bp2realisatie.classes.Database;
 import com.example.bp2realisatie.classes.Gebruiker;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,9 +23,10 @@ public class BudgetScreen {
     private Database database;
     private TextField txtBudget;
     private String gebruikersnaam;
+    private Gebruiker gebruiker;
     Connection conn;
 
-    public BudgetScreen(Database database, String gebruikersnaam) {
+    public BudgetScreen(Stage primaryStage, Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
         this.gebruikersnaam = gebruikersnaam;
@@ -34,13 +36,19 @@ public class BudgetScreen {
         root = new VBox(10);
         root.setPadding(new Insets(10));
 
+        Button backButton = new Button("Terug naar Home");
+        backButton.setOnAction(e -> {
+            // Terug naar het startscherm
+            primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
+        });
+
         Label lblBudget = new Label("Budgetbedrag:");
         txtBudget = new TextField();
 
         Button verwerkBudgetButton = new Button("Verwerk Budget");
         verwerkBudgetButton.setOnAction(e -> verwerkBudget());
 
-        root.getChildren().addAll(lblBudget, txtBudget, verwerkBudgetButton);
+        root.getChildren().addAll(backButton, lblBudget, txtBudget, verwerkBudgetButton);
     }
 
     public Parent getScreen() {

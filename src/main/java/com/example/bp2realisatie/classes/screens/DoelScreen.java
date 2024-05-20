@@ -1,8 +1,10 @@
 package com.example.bp2realisatie.classes.screens;
 
 import com.example.bp2realisatie.classes.Database;
+import com.example.bp2realisatie.classes.Gebruiker;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,9 +23,10 @@ public class DoelScreen {
     private Database database;
     private TextField txtDoel;
     private String gebruikersnaam;
+    private Gebruiker gebruiker;
     Connection conn;
 
-    public DoelScreen(Database database, String gebruikersnaam) {
+    public DoelScreen(Stage primaryStage, Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
         this.gebruikersnaam = gebruikersnaam;
@@ -33,13 +36,19 @@ public class DoelScreen {
         root = new VBox(10);
         root.setPadding(new Insets(10));
 
+        Button backButton = new Button("Terug naar Home");
+        backButton.setOnAction(e -> {
+            // Terug naar het startscherm
+            primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
+        });
+
         Label lblDoel = new Label("Doelbedrag:");
         txtDoel = new TextField();
 
         Button btnStelDoelIn = new Button("Stel Doel In");
         btnStelDoelIn.setOnAction(e -> stelDoelIn());
 
-        root.getChildren().addAll(lblDoel, txtDoel, btnStelDoelIn);
+        root.getChildren().addAll(backButton, lblDoel, txtDoel, btnStelDoelIn);
     }
 
     public Parent getScreen() {

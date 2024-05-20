@@ -26,9 +26,9 @@ public class HomeScreen {
         this.gebruikersnaam = gebruikersnaam; // Sla de gebruikersnaam op
 
         // Initialize andere screens
-        this.transactieScreen = new TransactieScreen(database, gebruikersnaam);  // Geef gebruikersnaam door
-        this.budgetScreen = new BudgetScreen(database, gebruikersnaam);
-        this.doelScreen = new DoelScreen(database, gebruikersnaam);
+        this.transactieScreen = new TransactieScreen(primaryStage, database, gebruikersnaam);  // Geef gebruikersnaam en primaryStage ook door voor switchen van screens
+        this.budgetScreen = new BudgetScreen(primaryStage, database, gebruikersnaam);
+        this.doelScreen = new DoelScreen(primaryStage, database, gebruikersnaam);
 
         // Initialize other UI components as before
         root = new VBox(10);
