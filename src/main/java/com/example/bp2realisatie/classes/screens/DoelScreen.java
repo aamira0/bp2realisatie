@@ -23,10 +23,11 @@ public class DoelScreen {
     private String gebruikersnaam;
     Connection conn;
 
-    public DoelScreen() {
+    public DoelScreen(Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
         this.gebruikersnaam = gebruikersnaam;
+        this.conn = database.getConnection();
 
         // Initialize UI components
         root = new VBox(10);
@@ -74,9 +75,10 @@ public class DoelScreen {
             statement.setDouble(2, bedrag);
             statement.executeUpdate();
             conn.commit();
+            System.out.println("Doel met succes opgeslagen!");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Er is een fout opgetreden bij het opslaan van het doel.");
         }
     }
-
-}
+    }

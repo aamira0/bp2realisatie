@@ -25,11 +25,10 @@ public class HomeScreen {
         this.database = database;
         this.gebruikersnaam = gebruikersnaam; // Sla de gebruikersnaam op
 
-        // Initialize TransactieScreen with Database instance
+        // Initialize andere screens
         this.transactieScreen = new TransactieScreen(database, gebruikersnaam);  // Geef gebruikersnaam door
-
-        // Initialiseer de budgetScreen
         this.budgetScreen = new BudgetScreen(database, gebruikersnaam);
+        this.doelScreen = new DoelScreen(database, gebruikersnaam);
 
         // Initialize other UI components as before
         root = new VBox(10);
