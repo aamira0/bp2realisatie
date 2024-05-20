@@ -1,6 +1,7 @@
 package com.example.bp2realisatie.classes.screens;
 
 import com.example.bp2realisatie.classes.Database;
+import com.example.bp2realisatie.classes.Gebruiker;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -23,10 +24,11 @@ public class BudgetScreen {
     private String gebruikersnaam;
     Connection conn;
 
-    public BudgetScreen() {
+    public BudgetScreen(Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
         this.gebruikersnaam = gebruikersnaam;
+        this.conn = database.getConnection();
 
         // Initialize UI components
         root = new VBox(10);
@@ -37,7 +39,6 @@ public class BudgetScreen {
 
         Button verwerkBudgetButton = new Button("Verwerk Budget");
         verwerkBudgetButton.setOnAction(e -> verwerkBudget());
-        root.getChildren().add(verwerkBudgetButton);
 
         root.getChildren().addAll(lblBudget, txtBudget, verwerkBudgetButton);
     }
@@ -57,6 +58,7 @@ public class BudgetScreen {
 //            budget += budgetBedrag;
 //            updateOvergeblevenBudget();
 
+            // Tekstveld leegmaken
             txtBudget.clear();
         } catch (ParseException | NumberFormatException ex) {
             System.out.println("Voer een geldig bedrag in voor het budget.");
@@ -73,8 +75,10 @@ public class BudgetScreen {
             statement.setDouble(2, bedrag);
             statement.executeUpdate();
             conn.commit();
+            System.out.println("Budget met succes opgeslagen!");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Er is een fout opgetreden bij het opslaan van het budget.");
         }
     }
 }

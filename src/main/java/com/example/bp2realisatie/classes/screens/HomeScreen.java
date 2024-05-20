@@ -27,7 +27,10 @@ public class HomeScreen {
 
         // Initialize TransactieScreen with Database instance
         this.transactieScreen = new TransactieScreen(database, gebruikersnaam);  // Geef gebruikersnaam door
-        
+
+        // Initialiseer de budgetScreen
+        this.budgetScreen = new BudgetScreen(database, gebruikersnaam);
+
         // Initialize other UI components as before
         root = new VBox(10);
         root.setPadding(new Insets(10));
