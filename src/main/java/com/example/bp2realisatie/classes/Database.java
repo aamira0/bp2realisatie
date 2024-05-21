@@ -8,7 +8,6 @@ import java.text.ParseException;
 
 public class Database {
     private Connection conn;
-    private Database database;
     private String gebruikersnaam;
 
     public Connection getConnection() {
@@ -60,41 +59,6 @@ public class Database {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO gebruiker (gebruikersnaam, wachtwoord) VALUES (?, ?)");
             statement.setString(1, gebruikersnaam);
             statement.setString(2, wachtwoord);
-            statement.executeUpdate();
-            conn.commit();
-            return true; // Geeft true terug als de operatie succesvol is
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // Geeft false terug als er een fout is opgetreden
-        }
-    }
-
-    // Voegt doel toe aan de database
-    public void opslaanDoel( double bedrag) {
-        try {
-            int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-
-            System.out.println("Doel: Gebruiker ID - " + gebruikerId + ", Bedrag - " + bedrag);
-
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO doel (gebruiker_id, bedrag) VALUES (?, ?)");
-            statement.setInt(1, gebruikerId);
-            statement.setDouble(2, bedrag);
-            statement.executeUpdate();
-            conn.commit();
-            System.out.println("Doel: Transactie succesvol gecommit.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Voegt budget toe aan de database
-    public boolean opslaanBudget(double bedrag) {
-        try {
-            int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO budget (gebruiker_id, bedrag) VALUES (?, ?)");
-            statement.setInt(1, gebruikerId);
-            statement.setDouble(2, bedrag);
             statement.executeUpdate();
             conn.commit();
             return true; // Geeft true terug als de operatie succesvol is
