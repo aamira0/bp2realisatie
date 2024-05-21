@@ -37,7 +37,8 @@ public class Database {
 
             // Tabel voor doelen
             stm.execute("CREATE TABLE IF NOT EXISTS doel (id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "gebruiker_id INT, bedrag DOUBLE, FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
+                    "gebruiker_id INT, bedrag DOUBLE, naam VARCHAR(255), " +
+                    "FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
 
             // Tabel voor transacties
             stm.execute("CREATE TABLE IF NOT EXISTS transactie (id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -86,11 +87,12 @@ public class Database {
     }
 
     //Doel opslaan
-    public boolean opslaanDoel(double bedrag, int gebruikerId) {
+    public boolean opslaanDoel(String naam, double bedrag, int gebruikerId) {
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO doel (gebruiker_id, bedrag) VALUES (?, ?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO doel (gebruiker_id, naam, bedrag) VALUES (?, ?, ?)");
             statement.setInt(1, gebruikerId);
-            statement.setDouble(2, bedrag);
+            statement.setString(2, naam);
+            statement.setDouble(3, bedrag);
             statement.executeUpdate();
             conn.commit();
             return true; // Geeft true terug als de operatie succesvol is
@@ -111,9 +113,8 @@ public class Database {
 
             while (rs.next()) {
                 double bedrag = rs.getDouble("bedrag");
-                // Veronderstel dat het doel een naam heeft in de database
                 String naam = rs.getString("naam");
-                Doel doel = new Doel(naam, bedrag); // Maak een nieuw Doel-object met de opgehaalde gegevens
+                Doel doel = new Doel(naam, bedrag); // Maak een nieuw Doel-object met de opgehaalde naam en bedrag
                 doelen.add(doel);
             }
         } catch (SQLException e) {
@@ -121,6 +122,7 @@ public class Database {
         }
         return doelen;
     }
+
 
     // Budget opslaan
     public boolean opslaanBudget(double bedrag, int gebruikerId) {
