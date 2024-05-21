@@ -24,6 +24,7 @@ public class TransactieScreen {
         private TableView<Transactie> transactieTableView;
         private TextField txtTransactie;
         private String gebruikersnaam;
+        double bedrag;
         private Gebruiker gebruiker;
         private Connection conn;
 
@@ -68,25 +69,6 @@ public class TransactieScreen {
             return root;
         }
 
-        // Voegt transactie toe aan de database
-        public void opslaanTransactie(double bedrag) {
-            try {
-                int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-
-                System.out.println("Transactie wordt opgeslagen voor gebruiker met ID " + gebruikerId + ", Bedrag: " + bedrag + " euro."); // Laat ons weten dat we bezig zijn met het opslaan van een transactie
-
-                PreparedStatement statement = conn.prepareStatement("INSERT INTO transactie (gebruiker_id, bedrag) VALUES (?, ?)");
-                statement.setInt(1, gebruikerId);
-                statement.setDouble(2, bedrag);
-                statement.executeUpdate();
-                conn.commit();
-                System.out.println("Transactie met succes opgeslagen!"); // Vier de triomf van het opslaan van de transactie
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("Er is een fout opgetreden bij het opslaan van de transactie."); // Benadruk het ongeluk als er een fout optreedt
-            }
-        }
-
         // Verwerken van transactie
         private void verwerkTransactie() {
             try {
@@ -102,8 +84,8 @@ public class TransactieScreen {
                 //Probeert het bedrag in te lezen
                 double transactie = NumberFormat.getInstance().parse(bedragString).doubleValue();
 
-                // Transactie opslaan in de database
-                opslaanTransactie(transactie);
+                // Functie aantopen om transactie op te slaan in de database
+                database.opslaanTransactie(bedrag, gebruikersnaam);
 
                 // Transactie aan de lijst toevoegen en TableView bijwerken
                 Transactie nieuweTransactie = new Transactie(transactie);
@@ -117,5 +99,4 @@ public class TransactieScreen {
                 ex.printStackTrace();
             }
         }
-
     }

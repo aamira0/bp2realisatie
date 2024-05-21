@@ -53,6 +53,40 @@ public class Database {
         }
     }
 
+    // Transacties opslaan
+    public void opslaanTransactie(double bedrag, String gebruikersnaam) {
+        try {
+            int gebruikerId = haalGebruikerIdOp(gebruikersnaam);
+
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO transactie (gebruiker_id, bedrag) VALUES (?, ?)");
+            statement.setInt(1, gebruikerId);
+            statement.setDouble(2, bedrag);
+            statement.executeUpdate();
+            conn.commit();
+            System.out.println("Transactie met succes opgeslagen!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Er is een fout opgetreden bij het opslaan van de transactie.");
+        }
+    }
+
+    //Transacties ophalen
+    public ObservableList<Transactie> laadTransacties() {
+        ObservableList<Transactie> transacties = FXCollections.observableArrayList();
+        try {
+            Statement stm = conn.createStatement(); // Hier krijg je de Connection van de Database
+            ResultSet rs = stm.executeQuery("SELECT * FROM transactie");
+            while (rs.next()) {
+                double bedrag = rs.getDouble("bedrag");
+                Transactie transactie = new Transactie(bedrag);
+                transacties.add(transactie);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transacties;
+    }
+
     // Voegt gebruiker toe aan de database
     public boolean opslaanGebruiker(String gebruikersnaam, String wachtwoord) {
         try {
@@ -68,6 +102,7 @@ public class Database {
         }
     }
 
+    //Budget ophalen
     public ObservableList<Budget> haalBudgetOp(String gebruikersnaam) {
         ObservableList<Budget> budgetten = FXCollections.observableArrayList();
         try {
@@ -106,22 +141,7 @@ public class Database {
         return gebruikers;
     }
 
-    public ObservableList<Transactie> laadTransacties() {
-        ObservableList<Transactie> transacties = FXCollections.observableArrayList();
-        try {
-            Statement stm = conn.createStatement(); // Hier krijg je de Connection van de Database
-            ResultSet rs = stm.executeQuery("SELECT * FROM transactie");
-            while (rs.next()) {
-                double bedrag = rs.getDouble("bedrag");
-                Transactie transactie = new Transactie(bedrag);
-                transacties.add(transactie);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return transacties;
-    }
-
+    //GebruikerID ophalen
     public int haalGebruikerIdOp(String gebruikersnaam) {
         int gebruikerId = -1;
         try {
@@ -139,6 +159,7 @@ public class Database {
     }
 
     // Read
+    //Haal gebruiker op
     public Gebruiker haalGebruikerOp(String gebruikersnaam) {
         Gebruiker gebruiker = null;
         try {
