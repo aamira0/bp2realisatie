@@ -3,8 +3,6 @@ package com.example.bp2realisatie.classes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
-import java.text.NumberFormat;
-import java.text.ParseException;
 
 public class Database {
     private Connection conn;
@@ -88,21 +86,20 @@ public class Database {
     }
 
     //Doel opslaan
-    public void opslaanDoel(double bedrag) {
+    public boolean opslaanDoel(double bedrag, int gebruikerId) {
         try {
-            int gebruikerId = haalGebruikerIdOp(gebruikersnaam);
-
             PreparedStatement statement = conn.prepareStatement("INSERT INTO doel (gebruiker_id, bedrag) VALUES (?, ?)");
             statement.setInt(1, gebruikerId);
             statement.setDouble(2, bedrag);
             statement.executeUpdate();
             conn.commit();
-            System.out.println("Doel met succes opgeslagen!");
+            return true; // Geeft true terug als de operatie succesvol is
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Er is een fout opgetreden bij het opslaan van het doel.");
+            return false; // Geeft false terug als er een fout is opgetreden
         }
     }
+
 
     // Doelen ophalen
     public ObservableList<Doel> haalDoelenOp(String gebruikersnaam) {

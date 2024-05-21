@@ -65,11 +65,25 @@ public class DoelScreen {
                 System.out.println("Voer een bedrag in voor het doel.");
                 return;
             }
-            // Probeert het bedrag in te lezen met behulp van de standaard locale
-            double doelBedrag = NumberFormat.getInstance().parse(txtDoel.getText()).doubleValue();
 
-            // Opslaan in de database
-            opslaanDoel(doelBedrag);
+            // Probeert het bedrag in te lezen met behulp van de standaard locale
+            double doelBedrag = NumberFormat.getInstance().parse(bedragString).doubleValue();
+
+            // Haal gebruiker ID op
+            int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
+            if (gebruikerId == -1) {
+                System.out.println("Gebruiker niet gevonden.");
+                return;
+            }
+
+            // Doel opslaan in de database
+            boolean success = database.opslaanDoel(doelBedrag, gebruikerId);
+            if (success) {
+                System.out.println("Doel succesvol opgeslagen.");
+            } else {
+                System.out.println("Fout bij het opslaan van doel.");
+            }
+
 
 //            doel.setBedrag(doelBedrag);
 //            lblDoel.setText("Doelbedrag: €" + doel.bedragProperty().get());
@@ -82,20 +96,4 @@ public class DoelScreen {
             ex.printStackTrace();
         }
     }
-
-    public void opslaanDoel( double bedrag) {
-        try {
-            int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO doel (gebruiker_id, bedrag) VALUES (?, ?)");
-            statement.setInt(1, gebruikerId);
-            statement.setDouble(2, bedrag);
-            statement.executeUpdate();
-            conn.commit();
-            System.out.println("Doel met succes opgeslagen!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Er is een fout opgetreden bij het opslaan van het doel.");
-        }
-    }
-    }
+}
