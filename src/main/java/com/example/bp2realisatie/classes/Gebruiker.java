@@ -9,18 +9,23 @@ public class Gebruiker {
     private String wachtwoord;
     private List<Transactie> transacties;
     private List<Doel> doelen;
-    private Gebruiker ingelogdeGebruiker;
+    private List<Budget> budgetten;
 
-
-    public Gebruiker(String gebruikersnaam, String wachtwoord) {
+    public Gebruiker(int id, String gebruikersnaam, String wachtwoord) {
+        this.id = id;
         this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
         this.transacties = new ArrayList<>();
         this.doelen = new ArrayList<>();
+        this.budgetten = new ArrayList<>();
     }
 
-    public int getId() {  // Voeg deze getter toe
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getGebruikersnaam() {
@@ -47,6 +52,10 @@ public class Gebruiker {
         this.transacties = transacties;
     }
 
+    public void voegTransactieToe(Transactie transactie) {
+        this.transacties.add(transactie);
+    }
+
     public List<Doel> getDoelen() {
         return doelen;
     }
@@ -55,33 +64,19 @@ public class Gebruiker {
         this.doelen = doelen;
     }
 
-    public Gebruiker(int id, String gebruikersnaam, String wachtwoord) {
-        this.id = id;
-        this.gebruikersnaam = gebruikersnaam;
-        this.wachtwoord = wachtwoord;
-        this.transacties = new ArrayList<>();
-        this.doelen = new ArrayList<>();
-    }
-
-    // Methoden om transacties toe te voegen en op te halen
-    public void voegTransactieToe(Transactie transactie) {
-        transacties.add(transactie);
-    }
-
-    public List<Transactie> krijgAlleTransacties() {
-        return transacties;
-    }
-
-    // Methoden om doelen toe te voegen en op te halen
     public void voegDoelToe(Doel doel) {
-        doelen.add(doel);
+        this.doelen.add(doel);
     }
 
-    public List<Doel> krijgAlleDoelen() {
-        return doelen;
+    public List<Budget> getBudgetten() {
+        return budgetten;
     }
 
-    public void setIngelogdeGebruiker(String gebruikersnaam, String wachtwoord) {
-        ingelogdeGebruiker = new Gebruiker(gebruikersnaam, wachtwoord);
+    public void setBudgetten(List<Budget> budgetten) {
+        this.budgetten = budgetten;
+    }
+
+    public void voegBudgetToe(Budget budget) {
+        this.budgetten.add(budget);
     }
 }

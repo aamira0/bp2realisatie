@@ -1,16 +1,13 @@
 package com.example.bp2realisatie.classes;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-
 public class Doel {
     private String naam;
-    private DoubleProperty bedragProperty;
+    private double bedrag;
     private double voortgang;
 
     public Doel(String naam, double bedrag) {
         this.naam = naam;
-        this.bedragProperty = new SimpleDoubleProperty(bedrag);
+        this.bedrag = bedrag;
         this.voortgang = 0.0;
     }
 
@@ -22,16 +19,12 @@ public class Doel {
         this.naam = naam;
     }
 
-    public DoubleProperty bedragProperty() {
-        return bedragProperty;
-    }
-
     public double getBedrag() {
-        return bedragProperty.get();
+        return bedrag;
     }
 
     public void setBedrag(double bedrag) {
-        bedragProperty.set(bedrag);
+        this.bedrag = bedrag;
     }
 
     public double getVoortgang() {
@@ -43,6 +36,6 @@ public class Doel {
     }
 
     public boolean isDoelBereikt() {
-        return voortgang >= getBedrag();
+        return voortgang >= bedrag;
     }
 }

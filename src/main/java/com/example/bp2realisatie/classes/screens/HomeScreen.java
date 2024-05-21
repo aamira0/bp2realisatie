@@ -46,6 +46,7 @@ public class HomeScreen {
         root.getChildren().addAll(btnTransactieScherm, btnBudgetScherm, btnDoelScherm);
     }
 
+    //Scherm ophalen
     public Parent getScreen() {
         return root;
     }

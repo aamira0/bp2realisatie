@@ -1,25 +1,20 @@
 package com.example.bp2realisatie.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Budget {
-    private String categorie;
+    private String naam;
     private double bedrag;
-    private List<Transactie> transacties;
 
-    public Budget(String categorie, double bedrag) {
-        this.categorie = categorie;
+    public Budget(String naam, double bedrag) {
+        this.naam = naam;
         this.bedrag = bedrag;
-        this.transacties = new ArrayList<>();
     }
 
-    public String getCategorie() {
-        return categorie;
+    public String getNaam() {
+        return naam;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 
     public double getBedrag() {
@@ -28,13 +23,5 @@ public class Budget {
 
     public void setBedrag(double bedrag) {
         this.bedrag = bedrag;
-    }
-
-    public List<Transactie> getTransacties() {
-        return transacties;
-    }
-
-    public void voegTransactieToe(Transactie transactie) {
-        transacties.add(transactie);
     }
 }

@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
         this.primaryStage = primaryStage;
 
         // Simulatie van ingelogde gebruiker
-        gebruiker = new Gebruiker("John", "1234");
+        gebruiker = new Gebruiker(1, "John", "1234");
 
         Database database = new Database();
 
