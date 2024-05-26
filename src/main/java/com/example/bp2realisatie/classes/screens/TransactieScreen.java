@@ -84,8 +84,8 @@ public class TransactieScreen {
                 //Probeert het bedrag in te lezen
                 double transactie = NumberFormat.getInstance().parse(bedragString).doubleValue();
 
-                // Functie aantoepen om transactie op te slaan in de database
-                database.opslaanTransactie(bedrag, gebruikersnaam);
+                // Functie aanroepen om transactie op te slaan in de database
+                database.opslaanTransactie(transactie, gebruikersnaam);
 
                 // Transactie aan de lijst toevoegen en TableView bijwerken
                 Transactie nieuweTransactie = new Transactie(transactie);
