@@ -25,6 +25,7 @@ public class TransactieScreen {
         private TextField txtTransactie;
         private String gebruikersnaam;
         double bedrag;
+        private Label lblTotaalTransactieBedrag;
         private Gebruiker gebruiker;
         private Connection conn;
 
@@ -62,7 +63,10 @@ public class TransactieScreen {
             transacties.addAll(database.laadTransacties());
             transactieTableView.setItems(transacties); // Werkt de TableView bij met de geladen transacties
 
-            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, transactieTableView);
+            // Label voor het totaalbedrag van transacties
+            lblTotaalTransactieBedrag = new Label("Totaalbedrag transacties: " + berekenTotaalTransactieBedrag());
+
+            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, transactieTableView, lblTotaalTransactieBedrag);
         }
 
         public Parent getScreen() {
@@ -99,4 +103,17 @@ public class TransactieScreen {
                 ex.printStackTrace();
             }
         }
+    // Methode om het totaalbedrag van alle transacties te berekenen
+    private double berekenTotaalTransactieBedrag() {
+        // Variabele om het totaalbedrag bij te houden, start met nul
+        double totaalBedrag = 0.0;
+
+        // Loopt door alle transacties en tel het bedrag van elke transactie op bij het totaalbedrag
+        for (Transactie transactie : transacties) {
+            totaalBedrag += transactie.getBedrag(); // Bedrag van de huidige transactie toevoegen aan het totaalbedrag
+        }
+
+        // Het berekende totaalbedrag retourneren
+        return totaalBedrag;
     }
+}
