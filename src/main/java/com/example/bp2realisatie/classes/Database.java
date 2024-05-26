@@ -42,7 +42,7 @@ public class Database {
 
             // Tabel voor transacties
             stm.execute("CREATE TABLE IF NOT EXISTS transactie (id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "gebruiker_id INT, bedrag DOUBLE, FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
+                    "gebruiker_id INT, bedrag DOUBLE, naam VARCHAR(255), FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
 
             // Tabel voor budgetten
             stm.execute("CREATE TABLE IF NOT EXISTS budget (id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -125,11 +125,12 @@ public class Database {
 
 
     // Budget opslaan
-    public boolean opslaanBudget(double bedrag, int gebruikerId) {
+    public boolean opslaanBudget(String naam, double bedrag, int gebruikerId) {
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO budget (bedrag, gebruiker_id) VALUES (?, ?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO budget (bedrag, naam, gebruiker_id) VALUES (?, ?, ?)");
             statement.setDouble(1, bedrag);
-            statement.setInt(2, gebruikerId);
+            statement.setString(2, naam);
+            statement.setInt(3, gebruikerId);
             statement.executeUpdate();
             conn.commit();
             return true; // Geeft true terug als de operatie succesvol is
@@ -149,7 +150,8 @@ public class Database {
 
             while (rs.next()) {
                 double bedrag = rs.getDouble("bedrag");
-                Budget budget = new Budget("Naam van budget", bedrag); // Pas de naam van het budget aan zoals in jouw implementatie
+                String naam = rs.getString("naam");
+                Budget budget = new Budget(naam, bedrag);
                 budgetten.add(budget);
             }
         } catch (SQLException e) {

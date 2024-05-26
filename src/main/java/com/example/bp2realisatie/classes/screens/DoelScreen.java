@@ -48,7 +48,7 @@ public class DoelScreen {
             primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
         });
 
-        // Creëer labels voor naam en bedrag
+        // Creëert labels voor naam en bedrag
         lblNaam = new Label("Naam:");
         lblBedrag = new Label("Bedrag:");
 
@@ -83,7 +83,7 @@ public class DoelScreen {
                 return;
             }
 
-            // Probeert het bedrag in te lezen met behulp van de standaard locale
+            // Probeert het bedrag in te lezen
             double doelBedrag = NumberFormat.getInstance().parse(bedragString).doubleValue();
 
             // Haal gebruiker ID op
