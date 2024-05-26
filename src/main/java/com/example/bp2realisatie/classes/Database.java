@@ -176,25 +176,6 @@ public class Database {
         }
     }
 
-    // Gebruiker ophalen
-    public ObservableList<Gebruiker> haalAlleGebruikersOp() {
-        ObservableList<Gebruiker> gebruikers = FXCollections.observableArrayList();
-        try {
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM gebruiker");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String gebruikersnaam = rs.getString("gebruikersnaam");
-                String wachtwoord = rs.getString("wachtwoord");
-                Gebruiker gebruiker = new Gebruiker(id, gebruikersnaam, wachtwoord);
-                gebruikers.add(gebruiker);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return gebruikers;
-    }
-
     // GebruikerID ophalen
     public int haalGebruikerIdOp(String gebruikersnaam) {
         int gebruikerId = -1;
