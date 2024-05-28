@@ -1,30 +1,11 @@
 package com.example.bp2realisatie.classes;
 
-public class Doel {
-    private String naam;
-    private double bedrag;
+public class Doel extends Financieel{
     private double voortgang;
 
     public Doel(String naam, double bedrag) {
-        this.naam = naam;
-        this.bedrag = bedrag;
+        super(naam, bedrag);
         this.voortgang = 0.0;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public double getBedrag() {
-        return bedrag;
-    }
-
-    public void setBedrag(double bedrag) {
-        this.bedrag = bedrag;
     }
 
     public double getVoortgang() {
@@ -36,6 +17,6 @@ public class Doel {
     }
 
     public boolean isDoelBereikt() {
-        return voortgang >= bedrag;
+        return voortgang >= getBedrag();
     }
 }
