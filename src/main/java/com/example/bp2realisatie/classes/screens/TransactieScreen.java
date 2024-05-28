@@ -86,36 +86,45 @@ public class TransactieScreen {
             return root;
         }
 
-        // Verwerken van transactie
-        private void verwerkTransactie() {
-            try {
-                // Bedrag ophalen uit het tekstveld
-                String bedragString = txtTransactie.getText();
+    // Verwerken van transactie
+    private void verwerkTransactie() {
+        try {
+            // Bedrag ophalen uit het tekstveld
+            String bedragString = txtTransactie.getText();
 
-                // Controleren of het tekstveld leeg is
-                if (bedragString.isEmpty()) {
-                    System.out.println("Voer een bedrag in voor de transactie.");
-                    return;
-                }
-
-                //Probeert het bedrag in te lezen
-                double transactie = NumberFormat.getInstance().parse(bedragString).doubleValue();
-
-                // Functie aanroepen om transactie op te slaan in de database
-                database.opslaanTransactie(transactie, gebruikersnaam);
-
-                // Transactie aan de lijst toevoegen en TableView bijwerken
-                Transactie nieuweTransactie = new Transactie();
-                transacties.add(nieuweTransactie);
-                transactieTableView.setItems(transacties);
-
-                // Tekstveld leegmaken
-                txtTransactie.clear();
-            } catch (ParseException | NumberFormatException ex) {
-                System.out.println("Voer een geldig bedrag in voor de transactie.");
-                ex.printStackTrace();
+            // Controleren of het tekstveld leeg is
+            if (bedragString.isEmpty()) {
+                System.out.println("Voer een bedrag in voor de transactie.");
+                return;
             }
+
+            // Probeert het bedrag in te lezen
+            double transactieBedrag = NumberFormat.getInstance().parse(bedragString).doubleValue();
+
+            // Functie aanroepen om transactie op te slaan in de database
+            database.opslaanTransactie(transactieBedrag, gebruikersnaam);
+
+            // Maak een nieuwe transactie aan met het ingevoerde bedrag
+            Transactie nieuweTransactie = new Transactie();
+            nieuweTransactie.setBedrag(transactieBedrag);
+
+            // Voeg de nieuwe transactie toe aan de lijst
+            transacties.add(nieuweTransactie);
+
+            // Werk de TableView bij
+            transactieTableView.setItems(transacties);
+
+            // Werk het totaalbedrag bij
+            lblTotaalTransactieBedrag.setText("Totaalbedrag transacties: " + berekenTotaalTransactieBedrag());
+
+            // Tekstveld leegmaken
+            txtTransactie.clear();
+        } catch (ParseException | NumberFormatException ex) {
+            System.out.println("Voer een geldig bedrag in voor de transactie.");
+            ex.printStackTrace();
         }
+    }
+
     // Methode om het totaalbedrag van alle transacties te berekenen
     private double berekenTotaalTransactieBedrag() {
         // Variabele om het totaalbedrag bij te houden, start met nul
