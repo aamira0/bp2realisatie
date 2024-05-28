@@ -57,6 +57,10 @@ public class TransactieScreen {
             Button updateButton = new Button("Update");
             updateButton.setOnAction(e -> updateTransactie());
 
+            // Button voor het verwijderen van transacties
+            Button deleteButton = new Button("Delete");
+            deleteButton.setOnAction(e -> deleteTransactie());
+
             transactieTableView = new TableView<>();
             TableColumn<Transactie, Double> bedragColumn = new TableColumn<>("Bedrag");
             bedragColumn.setCellValueFactory(cellData -> cellData.getValue().bedragProperty().asObject());
@@ -76,7 +80,7 @@ public class TransactieScreen {
             scrollPane.setContent(transactieTableView);
             scrollPane.setFitToWidth(true); // Pas de breedte van de ScrollPane aan op de breedte van het scherm
 
-            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag, updateButton);
+            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag, updateButton, deleteButton);
         }
 
         public Parent getScreen() {
@@ -102,7 +106,7 @@ public class TransactieScreen {
                 database.opslaanTransactie(transactie, gebruikersnaam);
 
                 // Transactie aan de lijst toevoegen en TableView bijwerken
-                Transactie nieuweTransactie = new Transactie(transactie);
+                Transactie nieuweTransactie = new Transactie();
                 transacties.add(nieuweTransactie);
                 transactieTableView.setItems(transacties);
 
@@ -152,6 +156,25 @@ public class TransactieScreen {
             }
         } else {
             System.out.println("Selecteer een transactie om te bijwerken.");
+        }
+    }
+
+    // Methode om een transactie te verwijderen
+    private void deleteTransactie() {
+        // Haal de geselecteerde transactie op uit de TableView
+        Transactie selectedTransactie = transactieTableView.getSelectionModel().getSelectedItem();
+
+        // Controleer of er een transactie is geselecteerd
+        if (selectedTransactie != null) {
+            transacties.remove(selectedTransactie); // Verwijder de geselecteerde transactie uit de lijst
+
+            // Verwijder de transactie uit de database
+            database.verwijderTransactie(selectedTransactie.getId());
+
+            // Werk de TableView bij
+            transactieTableView.setItems(transacties);
+        } else {
+            System.out.println("Selecteer een transactie om te verwijderen.");
         }
     }
 }

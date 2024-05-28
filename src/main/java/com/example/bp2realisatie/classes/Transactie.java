@@ -7,14 +7,15 @@ public class Transactie {
     private int id; // ID toegevoegd
     private DoubleProperty bedrag;
 
-
+    // Constructor met id en bedrag
     public Transactie(int id, double bedrag) {
         this.id = id;
         this.bedrag = new SimpleDoubleProperty(bedrag);
     }
 
-    //Gewone transactie
-    public Transactie(double transactie) {
+    // Constructor voor gewone nieuwe transacties zonder id
+    public Transactie() {
+        this.bedrag = new SimpleDoubleProperty(); // Standaardwaarde voor bedrag
     }
 
     public int getId() {

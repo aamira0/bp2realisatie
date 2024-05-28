@@ -107,6 +107,22 @@ public class Database {
         }
     }
 
+    // Methode om een transactie uit de database te verwijderen
+    public boolean verwijderTransactie(int transactieId) {
+        try {
+            // Bereid een SQL-delete voor om het bedrag van de transactie bij te verwijderen
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM transactie WHERE id = ?");
+            statement.setInt(1, transactieId); //transactie-ID
+            // Voer de update uit en haal het aantal bijgewerkte rijen op
+            int rowsDeleted = statement.executeUpdate();
+            conn.commit(); // Bevestig de wijzigingen in de database
+            return rowsDeleted > 0; // Geeft true terug als de transactie succesvol is verwijderd
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Geeft false terug als er een fout optreedt tijdens het verwijderen
+        }
+    }
+
     //Doel opslaan
     public boolean opslaanDoel(String naam, double bedrag, int gebruikerId) {
         try {
