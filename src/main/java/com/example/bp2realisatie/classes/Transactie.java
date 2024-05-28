@@ -22,6 +22,10 @@ public class Transactie {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public double getBedrag() {
         return bedrag.get();
     }
