@@ -4,10 +4,21 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 public class Transactie {
+    private int id; // ID toegevoegd
     private DoubleProperty bedrag;
 
-    public Transactie(double bedrag) {
+
+    public Transactie(int id, double bedrag) {
+        this.id = id;
         this.bedrag = new SimpleDoubleProperty(bedrag);
+    }
+
+    //Gewone transactie
+    public Transactie(double transactie) {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public double getBedrag() {
@@ -22,5 +33,6 @@ public class Transactie {
         this.bedrag.set(bedrag);
     }
 }
+
 
 

@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class Database {
     private Connection conn;
-    private String gebruikersnaam;
 
     public Connection getConnection() {
         return conn;
@@ -76,14 +75,36 @@ public class Database {
             Statement stm = conn.createStatement(); // Hier krijg je de Connection van de Database
             ResultSet rs = stm.executeQuery("SELECT * FROM transactie");
             while (rs.next()) {
+                int id = rs.getInt("id"); // Haal het id op van de transactie
                 double bedrag = rs.getDouble("bedrag");
-                Transactie transactie = new Transactie(bedrag);
+                Transactie transactie = new Transactie(id, bedrag); // Maak een nieuw Transactie-object met id en bedrag
                 transacties.add(transactie);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return transacties;
+    }
+
+    // Methode om een transactie bij te werken in de database
+    public boolean updateTransactie(int transactieId, double nieuwBedrag) {
+        try {
+            // Bereid een SQL-update voor om het bedrag van de transactie bij te werken op basis van de transactie-ID
+            PreparedStatement statement = conn.prepareStatement("UPDATE transactie SET bedrag = ? WHERE id = ?");
+            // Voeg het nieuwe bedrag en de transactie-ID toe als parameters aan de SQL-query
+            statement.setDouble(1, nieuwBedrag);
+            statement.setInt(2, transactieId);
+            // Voer de update uit en haal het aantal bijgewerkte rijen op
+            int rowsUpdated = statement.executeUpdate();
+            // Bevestig de wijzigingen in de database
+            conn.commit();
+            // Geef true terug als er ten minste één rij is bijgewerkt, anders false
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            // Vang eventuele SQL-fouten op en geef false terug om aan te geven dat de update niet is gelukt
+            e.printStackTrace();
+            return false;
+        }
     }
 
     //Doel opslaan

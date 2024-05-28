@@ -53,14 +53,16 @@ public class TransactieScreen {
             Button verwerkTransactieButton = new Button("Verwerk Transactie");
             verwerkTransactieButton.setOnAction(e -> verwerkTransactie());
 
+            // Button voor het updaten van gekozen transactie
+            Button updateButton = new Button("Update");
+            updateButton.setOnAction(e -> updateTransactie());
+
             transactieTableView = new TableView<>();
             TableColumn<Transactie, Double> bedragColumn = new TableColumn<>("Bedrag");
             bedragColumn.setCellValueFactory(cellData -> cellData.getValue().bedragProperty().asObject());
             transactieTableView.getColumns().add(bedragColumn);
             transactieTableView.setItems(transacties);
             transactieTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);//1 item in tableview klikbaar maken
-
-            Transactie selectedTransactie = transactieTableView.getSelectionModel().getSelectedItem();//geklikte item
 
             // Laadt transacties bij het starten van het scherm
             transacties.addAll(database.laadTransacties());
@@ -74,7 +76,7 @@ public class TransactieScreen {
             scrollPane.setContent(transactieTableView);
             scrollPane.setFitToWidth(true); // Pas de breedte van de ScrollPane aan op de breedte van het scherm
 
-            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag);
+            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag, updateButton);
         }
 
         public Parent getScreen() {
@@ -123,5 +125,24 @@ public class TransactieScreen {
 
         // Het berekende totaalbedrag retourneren
         return totaalBedrag;
+    }
+
+    // Methode om een geselecteerde transactie bij te werken
+    private void updateTransactie() {
+        // Haal de geselecteerde transactie op uit de TableView
+        Transactie selectedTransactie = transactieTableView.getSelectionModel().getSelectedItem();
+        if (selectedTransactie != null) {
+            // Haal het nieuwe bedrag op uit de tekstvelden
+            double nieuwBedrag = Double.parseDouble(txtTransactie.getText());
+            // Werk het bedrag van de geselecteerde transactie bij
+            selectedTransactie.setBedrag(nieuwBedrag);
+            // Werk de transactie bij in de database
+            database.updateTransactie(selectedTransactie.getId(), nieuwBedrag);
+            // Vernieuw de TableView om de wijzigingen weer te geven
+            transactieTableView.refresh();
+        } else {
+            // Geef een melding als er geen transactie is geselecteerd om bij te werken
+            System.out.println("Selecteer een transactie om te bijwerken.");
+        }
     }
 }
