@@ -34,7 +34,6 @@ public class TransactieScreen {
             this.database = database;
             this.conn = database.getConnection();
             this.gebruikersnaam = gebruikersnaam;  // Sla de gebruikersnaam op
-
             this.transacties = FXCollections.observableArrayList();
 
             // Initialize UI components
