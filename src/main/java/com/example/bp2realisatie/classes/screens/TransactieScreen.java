@@ -58,6 +58,9 @@ public class TransactieScreen {
             bedragColumn.setCellValueFactory(cellData -> cellData.getValue().bedragProperty().asObject());
             transactieTableView.getColumns().add(bedragColumn);
             transactieTableView.setItems(transacties);
+            transactieTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);//1 item in tableview klikbaar maken
+
+            Transactie selectedTransactie = transactieTableView.getSelectionModel().getSelectedItem();//geklikte item
 
             // Laadt transacties bij het starten van het scherm
             transacties.addAll(database.laadTransacties());
