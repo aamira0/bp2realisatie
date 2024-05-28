@@ -66,7 +66,12 @@ public class TransactieScreen {
             // Label voor het totaalbedrag van transacties
             lblTotaalTransactieBedrag = new Label("Totaalbedrag transacties: " + berekenTotaalTransactieBedrag());
 
-            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, transactieTableView, lblTotaalTransactieBedrag);
+            // Voeg de TableView toe aan een ScrollPane
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(transactieTableView);
+            scrollPane.setFitToWidth(true); // Pas de breedte van de ScrollPane aan op de breedte van het scherm
+
+            root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag);
         }
 
         public Parent getScreen() {

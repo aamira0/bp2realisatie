@@ -54,10 +54,10 @@ public class HelloApplication extends Application {
         // Laat alleen het inlogscherm zien bij het starten
         Scene scene = new Scene(inlogVBox);
 
-        primaryStage.setTitle("Inlogscherm");
+        primaryStage.setTitle("Persoonlijk Financieel Beheersysteem");
         primaryStage.setScene(scene);
-        primaryStage.setWidth(300);
-        primaryStage.setHeight(300);
+        primaryStage.setWidth(400);
+        primaryStage.setHeight(500);
         primaryStage.show();
 
         inlogButton.setOnAction(e -> {
