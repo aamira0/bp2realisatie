@@ -131,17 +131,26 @@ public class TransactieScreen {
     private void updateTransactie() {
         // Haal de geselecteerde transactie op uit de TableView
         Transactie selectedTransactie = transactieTableView.getSelectionModel().getSelectedItem();
+        // Controleer of er een transactie is geselecteerd
         if (selectedTransactie != null) {
-            // Haal het nieuwe bedrag op uit de tekstvelden
-            double nieuwBedrag = Double.parseDouble(txtTransactie.getText());
-            // Werk het bedrag van de geselecteerde transactie bij
-            selectedTransactie.setBedrag(nieuwBedrag);
-            // Werk de transactie bij in de database
-            database.updateTransactie(selectedTransactie.getId(), nieuwBedrag);
-            // Vernieuw de TableView om de wijzigingen weer te geven
-            transactieTableView.refresh();
+            // Controleer of er een nieuw bedrag is ingevuld
+            if (!txtTransactie.getText().isEmpty()) {
+                try {
+                    // Probeer het ingevoerde bedrag te parsen naar een double
+                    double nieuwBedrag = Double.parseDouble(txtTransactie.getText());
+                    // Werk het bedrag van de geselecteerde transactie bij
+                    selectedTransactie.setBedrag(nieuwBedrag);
+                    // Update de transactie in de database
+                    database.updateTransactie(selectedTransactie.getId(), nieuwBedrag);
+                    // Vernieuw de TableView om de wijzigingen weer te geven
+                    transactieTableView.refresh();
+                } catch (NumberFormatException e) {
+                    System.out.println("Voer een geldig bedrag in.");
+                }
+            } else {
+                System.out.println("Voer een nieuw bedrag in om de transactie bij te werken.");
+            }
         } else {
-            // Geef een melding als er geen transactie is geselecteerd om bij te werken
             System.out.println("Selecteer een transactie om te bijwerken.");
         }
     }
