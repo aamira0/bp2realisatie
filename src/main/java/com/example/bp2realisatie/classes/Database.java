@@ -43,9 +43,6 @@ public class Database {
             stm.execute("CREATE TABLE IF NOT EXISTS transactie (id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "gebruiker_id INT, bedrag DOUBLE, naam VARCHAR(255), FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
 
-            // INDEX toevoegen aan transactie tabel
-            stm.execute("CREATE INDEX transactie_index ON transactie (gebruiker_id, bedrag)");
-
             // Tabel voor budgetten
             stm.execute("CREATE TABLE IF NOT EXISTS budget (id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "gebruiker_id INT, bedrag DOUBLE, FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
