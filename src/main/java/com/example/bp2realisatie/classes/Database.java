@@ -13,14 +13,13 @@ public class Database {
 
     public Database() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/realisatie2",
-                    "root", "");
+            this.conn = DriverManager.getConnection("jdbc:mysql://adainforma.tk:3306/bp3_politieapp_ana_amira",
+                    "politieapp_ana_amira", "9%92iBz9b");
             // Zet de automatische commit-modus uit
             conn.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         // Zorgt ervoor dat de tabellen bestaan (hieronder wordt ervan uitgegaan dat ze nog niet bestaan)
         createTables();
     }
@@ -41,11 +40,13 @@ public class Database {
 
             // Tabel voor transacties
             stm.execute("CREATE TABLE IF NOT EXISTS transactie (id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "gebruiker_id INT, bedrag DOUBLE, naam VARCHAR(255), FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
+                    "gebruiker_id INT, bedrag DOUBLE, FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
 
             // Tabel voor budgetten
             stm.execute("CREATE TABLE IF NOT EXISTS budget (id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "gebruiker_id INT, bedrag DOUBLE, FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
+                    "gebruiker_id INT, bedrag DOUBLE, naam VARCHAR(255), " +
+                    "FOREIGN KEY (gebruiker_id) REFERENCES gebruiker(id))");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
