@@ -2,7 +2,6 @@ package com.example.bp2realisatie.classes.screens;
 
 import com.example.bp2realisatie.classes.Budget;
 import com.example.bp2realisatie.classes.Database;
-import com.example.bp2realisatie.classes.Doel;
 import com.example.bp2realisatie.classes.Gebruiker;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,8 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
@@ -107,11 +104,7 @@ public class BudgetScreen {
             } else {
                 System.out.println("Fout bij het opslaan van budget.");
             }
-
-//
-//            budget += budgetBedrag;
-//            updateOvergeblevenBudget();
-
+            
             // Tekstveld leegmaken
             txtBudget.clear();
             txtNaam.clear();
