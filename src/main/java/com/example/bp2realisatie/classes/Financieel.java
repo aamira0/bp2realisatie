@@ -4,9 +4,10 @@ public class Financieel {
     private String naam;
     private double bedrag;
 
+    // Constructor om een nieuw financieel object te initialiseren met een naam en bedrag.
     public Financieel(String naam, double bedrag) {
-        this.naam = naam;
-        this.bedrag = bedrag;
+        this.naam = naam;// Initialiseer de naam met de gegeven waarde
+        this.bedrag = bedrag; // Initialiseer het bedrag met de gegeven waarde
     }
 
     public String getNaam() {

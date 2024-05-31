@@ -13,9 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
-    private Stage primaryStage;
-    private Gebruiker gebruiker;
+    private Stage primaryStage; // De hoofd-Stage van de applicatie
+    private Gebruiker gebruiker; // De huidige gebruiker
 
+    // Het startpunt van de applicatie
     public static void main(String[] args) {
         launch(args);
     }
@@ -32,13 +33,16 @@ public class HelloApplication extends Application {
         String gebruikersnaam = "John";
         String wachtwoord = "1234";
 
+        // Controleren of de gebruiker al bestaat in de database
         if (database.haalGebruikerIdOp(gebruikersnaam) == -1) {
             database.opslaanGebruiker(gebruikersnaam, wachtwoord);
         }
 
-        VBox inlogVBox = new VBox(10);
-        inlogVBox.setPadding(new Insets(10));
+        // Het maken van een VBox voor het inlogscherm
+        VBox inlogVBox = new VBox(10); // VBox met een tussenruimte van 10 pixels tussen kinderen
+        inlogVBox.setPadding(new Insets(10)); // Ruimte rondom de VBox
 
+        // Labels en tekstvelden voor gebruikersnaam en wachtwoord
         Label lblGebruikersnaam = new Label("Gebruikersnaam:");
         TextField txtGebruikersnaam = new TextField();
         txtGebruikersnaam.setMaxWidth(200); // Stel de maximale breedte in voor het invoerveld
@@ -47,19 +51,23 @@ public class HelloApplication extends Application {
         TextField txtWachtwoord = new TextField();
         txtWachtwoord.setMaxWidth(200);
 
+        // Inlogbutton
         Button inlogButton = new Button("Inloggen");
 
+        // Voeg alle elementen toe aan de VBox
         inlogVBox.getChildren().addAll(lblGebruikersnaam, txtGebruikersnaam, lblWachtwoord, txtWachtwoord, inlogButton);
 
         // Laat alleen het inlogscherm zien bij het starten
         Scene scene = new Scene(inlogVBox);
 
+        // Instellingen voor de primaire stage
         primaryStage.setTitle("Persoonlijk Financieel Beheersysteem");
         primaryStage.setScene(scene);
         primaryStage.setWidth(400);
         primaryStage.setHeight(500);
         primaryStage.show();
 
+        // Acties inlogbutton
         inlogButton.setOnAction(e -> {
             String usernameInput = txtGebruikersnaam.getText();
             String passwordInput = txtWachtwoord.getText();
@@ -72,6 +80,7 @@ public class HelloApplication extends Application {
 
             // Controleert de geldigheid van de gebruikersnaam en wachtwoord
             if (gebruiker.getGebruikersnaam().equals(usernameInput) && gebruiker.getWachtwoord().equals(passwordInput)) {
+                // Maak een homescherm aan en toon het
                 HomeScreen homeScreen = new HomeScreen(primaryStage, gebruiker, database, usernameInput);  // Geeft gebruikersnaam door
                 Scene homeScene = new Scene(homeScreen.getScreen(), 300, 200);
                 primaryStage.setScene(homeScene);

@@ -19,18 +19,19 @@ import java.text.ParseException;
 
 public class BudgetScreen {
     private VBox root;
-    private Stage primaryStage;
+    private Stage primaryStage; // De hoofd-Stage van de applicatie
     private Database database;
     private TextField txtBudget;
-    private String gebruikersnaam;
+    private String gebruikersnaam; // De gebruikersnaam van de huidige gebruiker
     private Label lblNaam;
     private Label lblBedrag;
     private TextField txtNaam;
-    private double ingevoerdBedrag = 0.0; //standaard leeg tenzij ingevuld
-    private String ingevoerdeNaam = ""; //anders verschijnt naam niet
-    private Gebruiker gebruiker;
+    private double ingevoerdBedrag = 0.0; //Standaardwaarde voor het ingevoerde bedrag
+    private String ingevoerdeNaam = ""; // Standaardwaarde voor de ingevoerde naam. Anders verschijnt naam niet
+    private Gebruiker gebruiker; // De huidige gebruiker
     Connection conn;
 
+    // Constructor voor het BudgetScreen. Initialiseer de UI-componenten en laad de budgetten.
     public BudgetScreen(Stage primaryStage, Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
@@ -38,16 +39,17 @@ public class BudgetScreen {
         this.conn = database.getConnection();
 
         // Initialize UI components
-        root = new VBox(10);
-        root.setPadding(new Insets(10));
+        root = new VBox(10); // VBox met een tussenruimte van 10 pixels tussen kinderen
+        root.setPadding(new Insets(10)); // Ruimte rondom de VBox
 
+        // Knop om terug te gaan naar het startscherm
         Button backButton = new Button("Terug naar Home");
         backButton.setOnAction(e -> {
             // Terug naar het startscherm
             primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
         });
 
-        // Creëer labels voor naam en bedrag
+        // Labels en tekstvelden voor naam en bedrag van het budget
         lblNaam = new Label("Naam:");
         lblBedrag = new Label("Bedrag:");
 
@@ -57,9 +59,11 @@ public class BudgetScreen {
         Label lblBudget = new Label("Budgetbedrag:");
         txtBudget = new TextField();
 
+        // Knop om het budget te verwerken
         Button verwerkBudgetButton = new Button("Verwerk Budget");
         verwerkBudgetButton.setOnAction(e -> verwerkBudget());
 
+        // Voeg componenten toe aan de root container zodat het zichtbaar is.
         root.getChildren().addAll(backButton, lblNaamInput, txtNaam, lblBudget, txtBudget, verwerkBudgetButton, lblNaam, lblBedrag);
 
         // Laad budgetten bij het openen van het scherm
@@ -68,12 +72,12 @@ public class BudgetScreen {
 
     public Parent getScreen() {
         return root;
-    }
+    } // Geeft het budgetscherm terug
 
     // Verwerken van het budget
     private void verwerkBudget() {
         try {
-            // Bedrag ophalen uit het tekstveld
+            // Bedrag en naam ophalen uit het tekstveld
             String bedragString = txtBudget.getText();
             String naam = txtNaam.getText();
 
@@ -87,7 +91,7 @@ public class BudgetScreen {
 
             // Haal gebruiker ID op
             int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-            if (gebruikerId == -1) {
+            if (gebruikerId == -1) { //Als het ID -1 is
                 System.out.println("Gebruiker niet gevonden.");
                 return;
             }
@@ -115,11 +119,12 @@ public class BudgetScreen {
     }
 
     private void laadBudgetten() {
-        // Haal budgetten op uit de database
+        // Haal de lijst van budgetten op voor de huidige gebruiker
         ObservableList<Budget> budgets = database.haalBudgetOp(gebruikersnaam);
 
         // Controleer of er budgetten zijn opgehaald
         if (budgets.isEmpty()) {
+            // Als er geen budgetten zijn, toon een bericht
             lblNaam.setText("Geen budgetten gevonden.");
             lblBedrag.setText("");
         } else {

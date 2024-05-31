@@ -5,9 +5,9 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class Transactie {
     private int id; // ID toegevoegd
-    private DoubleProperty bedrag;
+    private DoubleProperty bedrag; // Bedrag transactie
 
-    // Constructor met id en bedrag
+    // Constructor met id en bedrag om te initialiseren
     public Transactie(int id, double bedrag) {
         this.id = id;
         this.bedrag = new SimpleDoubleProperty(bedrag);
@@ -15,7 +15,7 @@ public class Transactie {
 
     // Constructor voor gewone nieuwe transacties zonder id
     public Transactie() {
-        this.bedrag = new SimpleDoubleProperty(); // Standaardwaarde voor bedrag
+        this.bedrag = new SimpleDoubleProperty(); // Standaardwaarde voor bedrag initialiseren
     }
 
     public int getId() {

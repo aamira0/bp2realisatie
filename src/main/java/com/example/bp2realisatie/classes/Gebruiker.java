@@ -7,10 +7,13 @@ public class Gebruiker {
     private int id;
     private String gebruikersnaam;
     private String wachtwoord;
+
+    // Lijsten opslaan
     private List<Transactie> transacties;
     private List<Doel> doelen;
     private List<Budget> budgetten;
 
+    // Constructor om een nieuwe gebruiker te initialiseren met een ID, gebruikersnaam en wachtwoord.
     public Gebruiker(int id, String gebruikersnaam, String wachtwoord) {
         this.id = id;
         this.gebruikersnaam = gebruikersnaam;

@@ -19,19 +19,20 @@ import java.text.ParseException;
 
 public class DoelScreen {
     private VBox root;
-    private Stage primaryStage;
+    private Stage primaryStage; // De hoofd-Stage van de applicatie
     private Database database;
     private TextField txtDoel;
     private TextField txtNaam;
-    private String gebruikersnaam;
-    private Gebruiker gebruiker;
-    private double ingevoerdBedrag = 0.0;
-    private String ingevoerdeNaam = "";
+    private String gebruikersnaam;// De gebruikersnaam van de huidige gebruiker
+    private Gebruiker gebruiker; // De huidige gebruiker
+    private double ingevoerdBedrag = 0.0;// Standaardwaarde voor het ingevoerde bedrag
+    private String ingevoerdeNaam = ""; // Standaardwaarde voor de ingevoerde naam anders zegt het niks.
     private Label lblNaam;
     private Label lblBedrag;
 
     Connection conn;
 
+    // Constructor voor het DoelScreen. Initialiseert de UI-componenten en laadt de doelen.
     public DoelScreen(Stage primaryStage, Database database, String gebruikersnaam) {
         this.primaryStage = primaryStage;
         this.database = database;
@@ -39,9 +40,10 @@ public class DoelScreen {
         this.conn = database.getConnection();
 
         // Initialize UI components
-        root = new VBox(10);
-        root.setPadding(new Insets(10));
+        root = new VBox(10); // VBox met een tussenruimte van 10 pixels tussen kinderen
+        root.setPadding(new Insets(10)); // Ruimte rondom de VBox
 
+        // Knop om terug te gaan naar het startscherm
         Button backButton = new Button("Terug naar Home");
         backButton.setOnAction(e -> {
             // Terug naar het startscherm
@@ -61,6 +63,7 @@ public class DoelScreen {
         Button btnStelDoelIn = new Button("Stel Doel In");
         btnStelDoelIn.setOnAction(e -> stelDoelIn());
 
+        // Voeg componenten toe aan de root container anders zie je niks
         root.getChildren().addAll(backButton, lblNaamInput, txtNaam, lblDoel, txtDoel, btnStelDoelIn, lblNaam, lblBedrag);
 
         // Laad doelen bij het openen van het scherm
@@ -69,7 +72,7 @@ public class DoelScreen {
 
     public Parent getScreen() {
         return root;
-    }
+    } // Geeft het doelscherm terug
 
     private void stelDoelIn() {
         try {
@@ -88,7 +91,7 @@ public class DoelScreen {
 
             // Haal gebruiker ID op
             int gebruikerId = database.haalGebruikerIdOp(gebruikersnaam);
-            if (gebruikerId == -1) {
+            if (gebruikerId == -1) { //Als het ID -1 is
                 System.out.println("Gebruiker niet gevonden.");
                 return;
             }
@@ -121,6 +124,7 @@ public class DoelScreen {
 
         // Controleer of er doelen zijn opgehaald
         if (doelen.isEmpty()) {
+            // Als er geen doelen zijn, toon een bericht
             lblNaam.setText("Geen doelen gevonden.");
             lblBedrag.setText("");
         } else {

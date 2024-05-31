@@ -18,37 +18,40 @@ import java.text.ParseException;
 
 public class TransactieScreen {
         private VBox root;
-        private Stage primaryStage;
+        private Stage primaryStage; // De hoofd-Stage van de applicatie
         private Database database;
-        private ObservableList<Transactie> transacties;
-        private TableView<Transactie> transactieTableView;
+        private ObservableList<Transactie> transacties;// ObservableList voor het bijhouden van transacties
+    private TableView<Transactie> transactieTableView; // TableView voor het weergeven van transacties
         private TextField txtTransactie;
-        private String gebruikersnaam;
+        private String gebruikersnaam; // Gebruikersnaam van de huidige gebruiker
         double bedrag;
         private Label lblTotaalTransactieBedrag;
-        private Gebruiker gebruiker;
+        private Gebruiker gebruiker; // De huidige gebruiker
         private Connection conn;
 
         public TransactieScreen(Stage primaryStage, Database database, String gebruikersnaam) {  // Voeg gebruikersnaam als parameter toe
             this.primaryStage = primaryStage;
             this.database = database;
             this.conn = database.getConnection();
-            this.gebruikersnaam = gebruikersnaam;  // Sla de gebruikersnaam op
+            this.gebruikersnaam = gebruikersnaam; // Gebruikersnaam initialiseren
             this.transacties = FXCollections.observableArrayList();
 
             // Initialize UI components
-            root = new VBox(10);
-            root.setPadding(new Insets(10));
+            root = new VBox(10);// VBox met een tussenruimte van 10 pixels tussen kinderen
+            root.setPadding(new Insets(10)); // Ruimte rondom de VBox
 
+            // Terugknop naar het startscherm
             Button backButton = new Button("Terug naar Home");
             backButton.setOnAction(e -> {
                 // Terug naar het startscherm
                 primaryStage.setScene(new Scene(new HomeScreen(primaryStage, gebruiker, database, gebruikersnaam).getScreen()));
             });
 
+            // Label en tekstveld voor het invoeren van een transactiebedrag
             Label lblTransactie = new Label("Transactiebedrag:");
             txtTransactie = new TextField();
 
+            // Button voor het verwerken van een nieuwe transactie
             Button verwerkTransactieButton = new Button("Verwerk Transactie");
             verwerkTransactieButton.setOnAction(e -> verwerkTransactie());
 
@@ -56,15 +59,18 @@ public class TransactieScreen {
             Button updateButton = new Button("Update");
             updateButton.setOnAction(e -> updateTransactie());
 
-            // Button voor het verwijderen van transacties
+            // Button voor het verwijderen van gekozen transactie
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction(e -> deleteTransactie());
 
+            // TableView voor het weergeven van transacties
             transactieTableView = new TableView<>();
+            // Kolom voor het weergeven van het bedrag van de transactie
             TableColumn<Transactie, Double> bedragColumn = new TableColumn<>("Bedrag");
+            // Koppel de waarde van de cellen aan de bedragProperty van Transactie
             bedragColumn.setCellValueFactory(cellData -> cellData.getValue().bedragProperty().asObject());
-            transactieTableView.getColumns().add(bedragColumn);
-            transactieTableView.setItems(transacties);
+            transactieTableView.getColumns().add(bedragColumn); // Voeg de bedragkolom toe aan de TableView
+            transactieTableView.setItems(transacties); // Zet de items in de TableView op basis van de transacties-lijst
             transactieTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);//1 item in tableview klikbaar maken
 
             // Laadt transacties bij het starten van het scherm
@@ -79,12 +85,13 @@ public class TransactieScreen {
             scrollPane.setContent(transactieTableView);
             scrollPane.setFitToWidth(true); // Pas de breedte van de ScrollPane aan op de breedte van het scherm
 
+            // Toevoegen van UI-componenten aan de VBox
             root.getChildren().addAll(backButton, lblTransactie, txtTransactie, verwerkTransactieButton, scrollPane, lblTotaalTransactieBedrag, updateButton, deleteButton);
         }
 
         public Parent getScreen() {
             return root;
-        }
+        } // Geeft het transactiescherm terug
 
     // Verwerken van transactie
     private void verwerkTransactie() {
@@ -106,7 +113,7 @@ public class TransactieScreen {
 
             // Maak een nieuwe transactie aan met het ingevoerde bedrag
             Transactie nieuweTransactie = new Transactie();
-            nieuweTransactie.setBedrag(transactieBedrag);
+            nieuweTransactie.setBedrag(transactieBedrag); // Instellen van het bedrag van de transactie
 
             // Voeg de nieuwe transactie toe aan de lijst
             transacties.add(nieuweTransactie);
