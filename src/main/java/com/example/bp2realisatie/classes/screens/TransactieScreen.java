@@ -163,6 +163,8 @@ public class TransactieScreen {
                     database.updateTransactie(selectedTransactie.getId(), nieuwBedrag);
                     // Vernieuw de TableView om de wijzigingen weer te geven
                     transactieTableView.refresh();
+                    // Werk het totaalbedrag bij
+                    lblTotaalTransactieBedrag.setText("Totaalbedrag transacties: " + berekenTotaalTransactieBedrag());
                 } catch (NumberFormatException e) {
                     System.out.println("Voer een geldig bedrag in.");
                 }
@@ -188,6 +190,9 @@ public class TransactieScreen {
 
             // Werk de TableView bij
             transactieTableView.setItems(transacties);
+
+            // Werk het totaalbedrag bij
+            lblTotaalTransactieBedrag.setText("Totaalbedrag transacties: " + berekenTotaalTransactieBedrag());
         } else {
             System.out.println("Selecteer een transactie om te verwijderen.");
         }
