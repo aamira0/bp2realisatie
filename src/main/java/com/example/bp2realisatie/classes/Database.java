@@ -13,8 +13,8 @@ public class Database {
 
     public Database() {
         try { // Connectie maken met de externe database
-            this.conn = DriverManager.getConnection("jdbc:mysql://adainforma.tk:3306/bp3_politieapp_ana_amira",
-                    "politieapp_ana_amira", "9%92iBz9b");
+            this.conn = DriverManager.getConnection("jdbc:mysql://adainforma.tk:3306/bp2_pfb",
+                    "pfb", "22x$39fiN");
             // Zet de automatische commit-modus uit
             conn.setAutoCommit(false);
         } catch (SQLException e) {

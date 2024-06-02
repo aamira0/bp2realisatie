@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d482fd9b-74a5-416e-b785-bb5d4d727fb2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/AppTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/Database.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +67,7 @@
       <recent name="C:\Users\ahlem\OneDrive\Documenten\GitHub\bp2realisatie\src\main\java\org\example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AppTest.testCorrectLogin">
+  <component name="RunManager">
     <configuration name="AppTest.testCorrectLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bp2realisatie" />
       <option name="PACKAGE_NAME" value="" />
@@ -140,6 +139,7 @@
       <workItem from="1716884308198" duration="15821000" />
       <workItem from="1717087850478" duration="3825000" />
       <workItem from="1717153448015" duration="15216000" />
+      <workItem from="1717334381885" duration="918000" />
     </task>
     <servers />
   </component>
