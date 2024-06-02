@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d482fd9b-74a5-416e-b785-bb5d4d727fb2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/AppTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/screens/BudgetScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bp2realisatie/classes/screens/BudgetScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +41,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AppTest.testCorrectLogin.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AppTest.testCorrectLoginn.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AppTest.testIncorrectLogin.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AppTest.testTransactieToevoegen.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -64,6 +68,56 @@
       <recent name="C:\Users\ahlem\OneDrive\Documenten\GitHub\bp2realisatie\src\main\java\org\example" />
     </key>
   </component>
+  <component name="RunManager" selected="JUnit.AppTest.testCorrectLogin">
+    <configuration name="AppTest.testCorrectLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bp2realisatie" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AppTest" />
+      <option name="METHOD_NAME" value="testCorrectLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest.testCorrectLoginn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bp2realisatie" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AppTest" />
+      <option name="METHOD_NAME" value="testCorrectLoginn" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest.testIncorrectLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bp2realisatie" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AppTest" />
+      <option name="METHOD_NAME" value="testIncorrectLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppTest.testTransactieToevoegen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bp2realisatie" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AppTest" />
+      <option name="METHOD_NAME" value="testTransactieToevoegen" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AppTest.testCorrectLoginn" />
+        <item itemvalue="JUnit.AppTest.testCorrectLogin" />
+        <item itemvalue="JUnit.AppTest.testTransactieToevoegen" />
+        <item itemvalue="JUnit.AppTest.testIncorrectLogin" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +139,7 @@
       <workItem from="1716792327209" duration="6344000" />
       <workItem from="1716884308198" duration="15821000" />
       <workItem from="1717087850478" duration="3825000" />
-      <workItem from="1717153448015" duration="3769000" />
+      <workItem from="1717153448015" duration="15216000" />
     </task>
     <servers />
   </component>
